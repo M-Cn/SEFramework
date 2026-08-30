@@ -4,6 +4,8 @@
 #include "Debug.h"
 #include "GeneralUtil.h"
 
+#include <cstring>
+
 namespace rlib
 {
     MDP::State::~State()

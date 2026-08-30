@@ -1,6 +1,8 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
+#include <cstring>
+
 #include "GeneralUtil.h"
 
 #ifdef DEBUG
