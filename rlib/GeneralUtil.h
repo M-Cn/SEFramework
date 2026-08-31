@@ -23,6 +23,8 @@ namespace rlib
     void reportPanic(const char* file, int line, const char* msg);
 
     void setPanicMode(PanicMode mode);
+
+    pid_t getThreadId();
 }
 
 #define REPORT_PANIC(msg) \

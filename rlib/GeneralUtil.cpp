@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdexcept>
+#include <unistd.h>
+#include <sys/syscall.h>
 
 namespace rlib
 {
@@ -29,5 +31,10 @@ namespace rlib
     void setPanicMode(PanicMode mode)
     {
         g_panicMode = mode;
+    }
+
+    pid_t getThreadId()
+    {
+        return syscall(SYS_gettid);
     }
 } // namespace rlib

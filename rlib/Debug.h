@@ -11,14 +11,16 @@
 #define OUTPUT_DEBUG_MSG(msg, ...)
 #endif
 
-#define TYPE_COL_WIDTH 10
+#define TYPE_COL_WIDTH 0
 
 #define PRINT_DEBUG_COLOR(color, type, fmt, ...) \
     do { \
         printf(color); \
+        printf("(%d) ", rlib::getThreadId()); \
         printf("[%s]", type); \
-        printf("%*s | ", TYPE_COL_WIDTH - (int)strlen(type), ""); \
+        printf("%*s", TYPE_COL_WIDTH - (int)strlen(type), ""); \
         printf(fmt, ##__VA_ARGS__); \
+        printf("\n"); \
         printf(RESET); \
     } while(0)
 
