@@ -10,8 +10,10 @@ namespace rlib
 {
     enum class PanicMode
     {
-        kPanicModeAbort,
-        kPanicModeThrowException
+        kPanicModeThrowException,
+        kPanicModeCoreDump,
+
+        kPanicModeNumModes
     };
 
     class PanicException : public std::runtime_error
@@ -27,17 +29,17 @@ namespace rlib
     - line: The line number where the error occurred.
     - msg: The error message.
     */
-    void reportPanic(const char* file, int line, const char* msg);
+    void reportPanic(const char* file, int line, const char* msg, ...);
 
     void setPanicMode(PanicMode mode);
 
     pid_t getThreadId();
 }
 
-#define RPANIC(msg) \
+#define RPANIC(msg, ...) \
     do { \
         std::string _panic_msg(msg); \
-        rlib::reportPanic(__FILE__, __LINE__, _panic_msg.c_str()); \
+        rlib::reportPanic(__FILE__, __LINE__, _panic_msg.c_str(), ##__VA_ARGS__); \
     } while(0)
 
 // Text formatting macros

@@ -5,23 +5,27 @@
 #include <stdexcept>
 #include <unistd.h>
 #include <sys/syscall.h>
+#include <cstdarg>
 
 namespace rlib
 {
-    PanicMode g_panicMode = PanicMode::kPanicModeAbort;
+    PanicMode g_panicMode = PanicMode::kPanicModeCoreDump;
 
-    void reportPanic(const char* file, int line, const char* msg)
+    void reportPanic(const char* file, int line, const char* msg, ...)
     {
         char errorMsg[1024];
-        snprintf(errorMsg, sizeof(errorMsg), "%s:%d: %s", file, line, msg);
+        va_list args;
+        va_start(args, msg);
+        vsnprintf(errorMsg, sizeof(errorMsg), msg, args);
+        va_end(args);
 
         switch (g_panicMode)
         {
         default:
-        case PanicMode::kPanicModeAbort:
+        case PanicMode::kPanicModeCoreDump:
             fprintf(stderr, "---------------------PANIC---------------------\n");
             fprintf(stderr, "\n\n%s\n\n", errorMsg);
-            fprintf(stderr, "Aborting the program.\n");
+            fprintf(stderr, "Generating core dump.\n");
             abort();
             break;
         case PanicMode::kPanicModeThrowException:
