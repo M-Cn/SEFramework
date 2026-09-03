@@ -13,6 +13,12 @@ namespace rlib
         kPanicModeThrowException
     };
 
+    class PanicException : public std::runtime_error
+    {
+    public:
+        PanicException(const std::string& msg) : std::runtime_error(msg) {}
+    };
+
     /*
     Reports a fatal error with file and line information, then exits the program.
     Parameters:

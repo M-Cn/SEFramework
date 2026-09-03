@@ -25,7 +25,7 @@ namespace rlib
             abort();
             break;
         case PanicMode::kPanicModeThrowException:
-            throw std::runtime_error(errorMsg);
+            throw PanicException(errorMsg);
             break;
         }
     }

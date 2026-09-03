@@ -119,10 +119,13 @@ void panicTest()
         rlib::setPanicMode(rlib::PanicMode::kPanicModeThrowException);
         RPANIC("This is a test panic message.");
     }
+    catch (const rlib::PanicException& e)
+    {
+        LOG_INFO("Panic test completed successfully (%s).", e.what());
+    }
     catch (const std::exception& e)
     {
-        LOG_ERROR("%s", e.what());
-        LOG_INFO("Panic test completed successfully.");
+        LOG_ERROR("Unexpected exception: %s", e.what());
     }
 }
 
