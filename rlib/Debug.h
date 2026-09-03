@@ -11,7 +11,7 @@
 #define OUTPUT_DEBUG_MSG(msg, ...)
 #endif
 
-#define TYPE_COL_WIDTH 0
+#define TYPE_COL_WIDTH 10
 
 #ifdef DEBUG
 #define LOG_COLOR(color, level, fmt, ...) \
