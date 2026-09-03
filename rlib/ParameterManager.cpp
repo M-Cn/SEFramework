@@ -61,7 +61,7 @@ namespace rlib
             return nullptr;
         }
 
-        LOG_DEBUG("Registered parameter: name='%s', typeName='%s', type='%s', value='%s'\n", param->getName().c_str(), param->getTypeName().c_str(), Parameter::parameterTypeAsString(param->getType()), valueStr.c_str());
+        LOG_DEBUG("Registered parameter: name='%s', typeName='%s', type='%s', value='%s'", param->getName().c_str(), param->getTypeName().c_str(), Parameter::parameterTypeAsString(param->getType()), valueStr.c_str());
         m_parameters.push_back(param);
 
         return param;

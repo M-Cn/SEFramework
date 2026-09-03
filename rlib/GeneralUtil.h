@@ -59,7 +59,7 @@ namespace rlib
         printf(RESET); \
     } while(0)
 
-#define PRINT_SUCCESS(fmt, ...) PRINT_COLOR(GREEN, fmt, ##__VA_ARGS__)
+#define PRINT_SUCCESS(fmt, ...)   PRINT_COLOR(GREEN, fmt, ##__VA_ARGS__)
 #define PRINT_FAILURE(fmt, ...)   PRINT_COLOR(RED, fmt, ##__VA_ARGS__)
 
 #define RASSERT(expr, fmt, ...) \

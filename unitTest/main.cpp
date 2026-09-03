@@ -15,10 +15,10 @@ void logTest()
     printf("------Log test------\n");
     printf("This test will output messages only if compiled in debug mode.\n");
 
-    LOG_INFO("This is a log info message.\n");
-    LOG_DEBUG("This is a log debug message.\n");
-    LOG_WARNING("This is a log warning message.\n");
-    LOG_ERROR("This is a log error message.\n");
+    LOG_INFO("This is a log info message.");
+    LOG_DEBUG("This is a log debug message.");
+    LOG_WARNING("This is a log warning message.");
+    LOG_ERROR("This is a log error message.");
 }
 
 void mdpTest()
@@ -33,11 +33,11 @@ void parameterTest()
     rlib::IntParameter intParam("TestInt");
     if (intParam.fromString("42"))
     {
-        LOG_DEBUG("IntParameter parsed value: %d\n", intParam.getValue());
+        LOG_DEBUG("IntParameter parsed value: %d", intParam.getValue());
     }
     else
     {
-        LOG_ERROR("Failed to parse IntParameter.\n");
+        LOG_ERROR("Failed to parse IntParameter.");
     }
 
     RASSERT(intParam.getValue() == 42, "IntParameter value should be 42");
@@ -45,11 +45,11 @@ void parameterTest()
     rlib::DoubleParameter doubleParam("TestDouble");
     if (doubleParam.fromString("3.14159"))
     {
-        LOG_DEBUG("DoubleParameter parsed value: %.5f\n", doubleParam.getValue());
+        LOG_DEBUG("DoubleParameter parsed value: %.5f", doubleParam.getValue());
     }
     else
     {
-        LOG_ERROR("Failed to parse DoubleParameter.\n");
+        LOG_ERROR("Failed to parse DoubleParameter.");
     }
 
     RASSERT(std::abs(doubleParam.getValue() - 3.14159) < 1e-5, "DoubleParameter value should be approximately 3.14159");
@@ -57,11 +57,11 @@ void parameterTest()
     rlib::StringParameter stringParam("TestString");
     if (stringParam.fromString("Hello, World!"))
     {
-        LOG_DEBUG("StringParameter parsed value: %s\n", stringParam.getValue().c_str());
+        LOG_DEBUG("StringParameter parsed value: %s", stringParam.getValue().c_str());
     }
     else
     {
-        LOG_ERROR("Failed to parse StringParameter.\n");
+        LOG_ERROR("Failed to parse StringParameter.");
     }
 
     RASSERT(stringParam.getValue() == "Hello, World!", "StringParameter value should be 'Hello, World!'");
@@ -69,11 +69,11 @@ void parameterTest()
     rlib::BoolParameter boolParam("TestBool");
     if (boolParam.fromString("true"))
     {
-        LOG_DEBUG("BoolParameter parsed value: %s\n", boolParam.getValue() ? " true" : "false");
+        LOG_DEBUG("BoolParameter parsed value: %s", boolParam.getValue() ? " true" : "false");
     }
     else
     {
-        LOG_ERROR("Failed to parse BoolParameter.\n");
+        LOG_ERROR("Failed to parse BoolParameter.");
     }
 
     RASSERT(boolParam.getValue() == true, "BoolParameter value should be true");
@@ -98,12 +98,12 @@ void parameterLoadTest()
             rlib::Parameter* param = paramManager.getParameter(i);
 
             if (param != nullptr)
-                LOG_DEBUG("Parameter %zu: (name='%s', type='%s', value='%s')\n", i, param->getName().c_str(), rlib::Parameter::parameterTypeAsString(param->getType()), param->getValueString().c_str());
+                LOG_DEBUG("Parameter %zu: (name='%s', type='%s', value='%s')", i, param->getName().c_str(), rlib::Parameter::parameterTypeAsString(param->getType()), param->getValueString().c_str());
         }
     }
     catch (const std::exception& e)
     {
-        LOG_ERROR("Failed to load parameters: %s\n", e.what());
+        LOG_ERROR("Failed to load parameters: %s", e.what());
     }
 }
 
@@ -113,12 +113,13 @@ void panicTest()
 
     try 
     {
-        rlib::setPanicMode(rlib::PanicMode::kPanicModeAbort);
+        rlib::setPanicMode(rlib::PanicMode::kPanicModeThrowException);
         REPORT_PANIC("This is a test panic message.");
     }
     catch (const std::exception& e)
     {
-        LOG_ERROR("%s\n", e.what());
+        LOG_ERROR("%s", e.what());
+        LOG_INFO("Panic test completed successfully.");
     }
 }
 

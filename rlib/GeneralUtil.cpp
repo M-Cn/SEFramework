@@ -19,7 +19,9 @@ namespace rlib
         {
         default:
         case PanicMode::kPanicModeAbort:
+            fprintf(stderr, "---------------------PANIC---------------------\n");
             fprintf(stderr, "%s", errorMsg);
+            fprintf(stderr, "Aborting the program.\n");
             abort();
             break;
         case PanicMode::kPanicModeThrowException:
