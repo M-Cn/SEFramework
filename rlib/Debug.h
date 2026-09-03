@@ -26,12 +26,14 @@
 
 #ifdef DEBUG
 #define LOG_DEBUG(fmt, ...)   PRINT_DEBUG_COLOR(WHITE, "DEBUG", fmt, ##__VA_ARGS__)
-#else
-#define LOG_DEBUG(fmt, ...)
-#endif
-
 #define LOG_INFO(fmt, ...)    PRINT_DEBUG_COLOR(RESET, "INFO", fmt, ##__VA_ARGS__)
 #define LOG_WARNING(fmt, ...) PRINT_DEBUG_COLOR(YELLOW, "WARNING", fmt, ##__VA_ARGS__)
 #define LOG_ERROR(fmt, ...)   PRINT_DEBUG_COLOR(RED, "ERROR", fmt, ##__VA_ARGS__)
+#else
+#define LOG_DEBUG(fmt, ...)
+#define LOG_INFO(fmt, ...)
+#define LOG_WARNING(fmt, ...)
+#define LOG_ERROR(fmt, ...)
+#endif
 
 #endif // DEBUG_H
