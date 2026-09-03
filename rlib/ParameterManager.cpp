@@ -117,7 +117,7 @@ namespace rlib
 
         file.close();
 
-        LOG_DEBUG("Successfully loaded %d parameters from file '%s'\n", numberOfLoadedParameters, filename.c_str());
+        LOG_INFO("Successfully loaded %d parameters from file '%s'", numberOfLoadedParameters, filename.c_str());
         
         return true;
     }

@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <cmath>
 #include <string>
+#include <stdexcept>
 
 namespace rlib
 {
@@ -16,7 +17,7 @@ namespace rlib
     class PanicException : public std::runtime_error
     {
     public:
-        PanicException(const std::string& msg) : std::runtime_error(msg) {}
+        PanicException(const char* msg) : std::runtime_error(msg) {}
     };
 
     /*

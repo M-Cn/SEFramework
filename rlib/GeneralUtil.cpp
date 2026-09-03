@@ -13,14 +13,14 @@ namespace rlib
     void reportPanic(const char* file, int line, const char* msg)
     {
         char errorMsg[1024];
-        snprintf(errorMsg, sizeof(errorMsg), "PANIC at %s:%d: %s\n", file, line, msg);
+        snprintf(errorMsg, sizeof(errorMsg), "%s:%d: %s", file, line, msg);
 
         switch (g_panicMode)
         {
         default:
         case PanicMode::kPanicModeAbort:
             fprintf(stderr, "---------------------PANIC---------------------\n");
-            fprintf(stderr, "%s", errorMsg);
+            fprintf(stderr, "\n\n%s\n\n", errorMsg);
             fprintf(stderr, "Aborting the program.\n");
             abort();
             break;
