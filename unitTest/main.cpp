@@ -6,8 +6,8 @@ void reportTestResultTest()
 {
     printf("------Report test result test------\n");
 
-    REPORT_TEST_RESULT(1 + 1 == 2, "This test is supposed to pass");
-    REPORT_TEST_RESULT(2 * 2 == 5, "This test is supposed to fail");
+    RASSERT(1 + 1 == 2, "This test is supposed to pass");
+    RASSERT(2 * 2 == 5, "This test is supposed to fail");
 }
 
 void logTest()
@@ -39,7 +39,7 @@ void parameterTest()
         LOG_ERROR("Failed to parse IntParameter.\n");
     }
 
-    REPORT_TEST_RESULT(intParam.getValue() == 42, "IntParameter value should be 42");
+    RASSERT(intParam.getValue() == 42, "IntParameter value should be 42");
 
     rlib::DoubleParameter doubleParam("TestDouble");
     if (doubleParam.fromString("3.14159"))
@@ -51,7 +51,7 @@ void parameterTest()
         LOG_ERROR("Failed to parse DoubleParameter.\n");
     }
 
-    REPORT_TEST_RESULT(std::abs(doubleParam.getValue() - 3.14159) < 1e-5, "DoubleParameter value should be approximately 3.14159");
+    RASSERT(std::abs(doubleParam.getValue() - 3.14159) < 1e-5, "DoubleParameter value should be approximately 3.14159");
 
     rlib::StringParameter stringParam("TestString");
     if (stringParam.fromString("Hello, World!"))
@@ -63,7 +63,7 @@ void parameterTest()
         LOG_ERROR("Failed to parse StringParameter.\n");
     }
 
-    REPORT_TEST_RESULT(stringParam.getValue() == "Hello, World!", "StringParameter value should be 'Hello, World!'");
+    RASSERT(stringParam.getValue() == "Hello, World!", "StringParameter value should be 'Hello, World!'");
 
     rlib::BoolParameter boolParam("TestBool");
     if (boolParam.fromString("true"))
@@ -75,7 +75,7 @@ void parameterTest()
         LOG_ERROR("Failed to parse BoolParameter.\n");
     }
 
-    REPORT_TEST_RESULT(boolParam.getValue() == true, "BoolParameter value should be true");
+    RASSERT(boolParam.getValue() == true, "BoolParameter value should be true");
 }
 
 void parameterLoadTest()

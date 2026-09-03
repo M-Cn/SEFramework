@@ -62,7 +62,7 @@ namespace rlib
 #define PRINT_SUCCESS(fmt, ...) PRINT_COLOR(GREEN, fmt, ##__VA_ARGS__)
 #define PRINT_FAILURE(fmt, ...)   PRINT_COLOR(RED, fmt, ##__VA_ARGS__)
 
-#define REPORT_TEST_RESULT(expr, fmt, ...) \
+#define RASSERT(expr, fmt, ...) \
     do { \
         if (expr) { \
             PRINT_SUCCESS("Test passed: " fmt "\n", ##__VA_ARGS__); \
