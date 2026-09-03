@@ -3,8 +3,7 @@
 
 #include <string>
 #include <vector>
-
-#include "../mocc/mocc.hpp"
+#include <cstdint>
 
 namespace rlib 
 {
@@ -22,7 +21,6 @@ namespace rlib
         kParamDoubleArray,
         kParamStringArray,
         kParamBoolArray,
-        kParamMdpStateTransitionDef,
 
         kParamNumTypes
     };
@@ -282,43 +280,6 @@ namespace rlib
         void setValue(int idx, bool value);
     private:
         std::vector<bool> m_value;
-    };
-
-    class MdpStateTransitionDefParameter : public Parameter
-    {
-    public:
-        MdpStateTransitionDefParameter(const std::string& name) : Parameter(name, "mdpStateTransitionDef", ParameterType::kParamMdpStateTransitionDef),
-        m_stateID(-1), 
-        m_nextStateID(-1),
-        m_probability(0.0), 
-        m_cost(0.0) {};
-
-        MdpStateTransitionDefParameter(const std::string& name, const std::string& typeName) : Parameter(name, typeName, ParameterType::kParamMdpStateTransitionDef),
-        m_stateID(-1), 
-        m_nextStateID(-1),
-        m_probability(0.0), 
-        m_cost(0.0) {};
-        
-        virtual ~MdpStateTransitionDefParameter() override = default;
-
-        bool fromString(const std::string& string) override;
-        std::string getValueString() const override;
-        bool isValid() const override { return isOfType(ParameterType::kParamMdpStateTransitionDef); }
-
-        int getStateID() const { return m_stateID; }
-        int getNextStateID() const { return m_nextStateID; }
-        real_t getProbability() const { return m_probability; }
-        real_t getCost() const { return m_cost; }
-
-        void setStateID(int stateID) { m_stateID = stateID; }
-        void setNextStateID(int stateID) { m_nextStateID = stateID; }
-        void setProbability(real_t probability) { m_probability = probability; }
-        void setCost(real_t cost) { m_cost = cost; }
-    private:
-        int m_stateID;
-        int m_nextStateID;
-        real_t m_probability;
-        real_t m_cost;
     };
 } // namespace rlib
 

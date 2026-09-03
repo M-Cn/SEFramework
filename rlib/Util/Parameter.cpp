@@ -2,7 +2,7 @@
 #include <sstream>
 #include <algorithm>
 
-#include "GeneralUtil.h"
+#include "../Core/GeneralUtil.h"
 
 #define SEPARATOR ' '
 
@@ -23,7 +23,6 @@ namespace rlib
         case ParameterType::kParamDoubleArray:              return "doubleArray";
         case ParameterType::kParamStringArray:              return "stringArray";
         case ParameterType::kParamBoolArray:                return "boolArray";
-        case ParameterType::kParamMdpStateTransitionDef:    return "mdpStateTransitionDef";
         default:                                            return "unknown";
         }
     }
@@ -41,7 +40,6 @@ namespace rlib
         if (typeName == "doubleArray")              return ParameterType::kParamDoubleArray;
         if (typeName == "stringArray")              return ParameterType::kParamStringArray;
         if (typeName == "boolArray")                return ParameterType::kParamBoolArray;
-        if (typeName == "mdpStateTransitionDef")    return ParameterType::kParamMdpStateTransitionDef;
 
         return ParameterType::kParamInvalid;
     }
@@ -465,38 +463,6 @@ namespace rlib
                 ss << SEPARATOR;
             }
         }
-
-        return ss.str();
-    }
-
-    bool MdpStateTransitionDefParameter::fromString(const std::string& string)
-    {
-        if (!isValid()) RPANIC("Invalid MdpStateTransitionDefParameter");
-
-        std::istringstream ss(string);
-        std::string item;
-        std::vector<std::string> tokens;
-
-        while (std::getline(ss, item, SEPARATOR))
-            tokens.push_back(item);
-
-        if (tokens.size() != 4)
-            return false;
-
-        m_stateID = std::stoi(tokens[0]);
-        m_nextStateID = std::stoi(tokens[1]);
-        m_probability = std::stod(tokens[2]);
-        m_cost = std::stod(tokens[3]);
-
-        return true;
-    }
-
-    std::string MdpStateTransitionDefParameter::getValueString() const
-    {
-        if (!isValid()) RPANIC("Invalid MdpStateTransitionDefParameter");
-
-        std::ostringstream ss;
-        ss << m_stateID << SEPARATOR << m_nextStateID << SEPARATOR << m_probability << SEPARATOR << m_cost;
 
         return ss.str();
     }

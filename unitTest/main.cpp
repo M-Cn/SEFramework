@@ -1,10 +1,11 @@
 #include "../rlib/rlib.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
-void reportTestResultTest()
+void assertTest()
 {
-    printf("------Report test result test------\n");
+    printf("------Assertion test------\n");
 
     RASSERT(1 + 1 == 2, "This test is supposed to pass");
     RASSERT(2 * 2 == 5, "This test is supposed to fail");
@@ -13,20 +14,11 @@ void reportTestResultTest()
 void logTest()
 {
     printf("------Log test------\n");
-    
-#ifndef DEBUG
-    printf("This test will output messages only if compiled in debug mode.\n");
-#endif
 
     LOG_INFO("This is a log info message.");
     LOG_DEBUG("This is a log debug message.");
     LOG_WARNING("This is a log warning message.");
     LOG_ERROR("This is a log error message.");
-}
-
-void mdpTest()
-{
-    printf("------MDP test------\n");
 }
 
 void parameterTest()
@@ -55,7 +47,7 @@ void parameterTest()
         LOG_ERROR("Failed to parse DoubleParameter.");
     }
 
-    RASSERT(std::abs(doubleParam.getValue() - 3.14159) < 1e-5, "DoubleParameter value should be approximately 3.14159");
+    RASSERT(FLOATS_EQUAL(doubleParam.getValue(), 3.14159), "DoubleParameter value should be approximately 3.14159");
 
     rlib::StringParameter stringParam("TestString");
     if (stringParam.fromString("Hello, World!"))
@@ -91,7 +83,7 @@ void parameterLoadTest()
     try 
     {
         paramManager.registerParameterType("N", rlib::ParameterType::kParamInt);
-        paramManager.registerParameterType("A", rlib::ParameterType::kParamMdpStateTransitionDef);
+        paramManager.registerParameterType("B", rlib::ParameterType::kParamBool);
         
         paramManager.loadFromFile("parameters.txt");
         size_t numParams = paramManager.getNumParameters();
@@ -131,9 +123,8 @@ void panicTest()
 
 int main() 
 {
-    reportTestResultTest();
+    assertTest();
     logTest();
-    mdpTest();
     parameterTest();
     parameterLoadTest();
     panicTest();

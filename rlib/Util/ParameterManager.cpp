@@ -1,7 +1,8 @@
 #include "ParameterManager.h"
 #include <fstream>
 #include <stdexcept>
-#include "Debug.h"
+
+#include "../Core/Debug.h"
 
 namespace rlib
 {

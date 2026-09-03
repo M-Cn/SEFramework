@@ -80,9 +80,10 @@ namespace rlib
         } \
     } while(0)
 
-#define FLOAT_EPSILON 1e-6
-#define REAL_EPSILON 1e-12
+#define FLOAT_EPSILON 1E-6
+#define REAL_EPSILON 1E-12
 
-#define ARE_FLOATS_EQUAL(a, b) (std::fabs((a) - (b)) < FLOAT_EPSILON)
-#define ARE_REALS_EQUAL(a, b) (std::fabs((a) - (b)) < REAL_EPSILON)
+#define FLOATS_EQUAL(a, b) (std::fabs((a) - (b)) < FLOAT_EPSILON)
+#define REALS_EQUAL(a, b) (std::fabs((a) - (b)) < REAL_EPSILON)
+
 #endif // GENERALUTIL_H

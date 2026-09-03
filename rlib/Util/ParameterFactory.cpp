@@ -1,5 +1,5 @@
 #include "ParameterFactory.h"
-#include "GeneralUtil.h"
+#include "../Core/GeneralUtil.h"
 
 namespace rlib
 {
@@ -34,7 +34,6 @@ namespace rlib
         case ParameterType::kParamDoubleArray:              return new DoubleArrayParameter(name, typeName);
         case ParameterType::kParamStringArray:              return new StringArrayParameter(name, typeName);
         case ParameterType::kParamBoolArray:                return new BoolArrayParameter(name, typeName);
-        case ParameterType::kParamMdpStateTransitionDef:    return new MdpStateTransitionDefParameter(name, typeName);
         }
 
         RPANIC("Unsupported parameter type: " + std::to_string(static_cast<int>(type)));
@@ -53,6 +52,5 @@ namespace rlib
         registerParameterType("doubleArray", ParameterType::kParamDoubleArray);
         registerParameterType("stringArray", ParameterType::kParamStringArray);
         registerParameterType("boolArray", ParameterType::kParamBoolArray);
-        registerParameterType("mdpStateTransitionDef", ParameterType::kParamMdpStateTransitionDef);
     }
 } // namespace rlib

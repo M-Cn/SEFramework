@@ -13,7 +13,6 @@
 
 #define TYPE_COL_WIDTH 10
 
-#ifdef DEBUG
 #define LOG_COLOR(color, level, fmt, ...) \
     do { \
         printf(color); \
@@ -29,12 +28,5 @@
 #define LOG_INFO(fmt, ...)    LOG_COLOR(RESET, "INFO", fmt, ##__VA_ARGS__)
 #define LOG_WARNING(fmt, ...) LOG_COLOR(YELLOW, "WARNING", fmt, ##__VA_ARGS__)
 #define LOG_ERROR(fmt, ...)   LOG_COLOR(RED, "ERROR", fmt, ##__VA_ARGS__)
-#else
-#define LOG_COLOR(color, level, fmt, ...)
-#define LOG_DEBUG(fmt, ...)
-#define LOG_INFO(fmt, ...)
-#define LOG_WARNING(fmt, ...)
-#define LOG_ERROR(fmt, ...)
-#endif
 
 #endif // DEBUG_H

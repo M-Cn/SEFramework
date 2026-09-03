@@ -24,7 +24,8 @@ namespace rlib
         default:
         case PanicMode::kPanicModeCoreDump:
             fprintf(stderr, "---------------------PANIC---------------------\n");
-            fprintf(stderr, "\n\n%s\n\n", errorMsg);
+            fprintf(stderr, "\n%s(%d): %s\n\n", file, line, errorMsg);
+            fprintf(stderr, "-----------------------------------------------\n");
             fprintf(stderr, "Generating core dump.\n");
             abort();
             break;
