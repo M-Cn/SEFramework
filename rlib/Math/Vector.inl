@@ -1,7 +1,42 @@
-#ifndef VECTOR3_INL
-#define VECTOR3_INL
+#ifndef VECTOR_INL
+#define VECTOR_INL
 
 #include <cmath>
+
+class Vector2
+{
+public:
+    Vector2() : m_X(0.f), m_Y(0.f) {}
+    Vector2(float _x, float _y) : m_X(_x), m_Y(_y) {}
+    Vector2(const Vector2& other) { m_X = other.m_X; m_Y = other.m_Y; }
+
+    float X() const { return m_X; }
+    float Y() const { return m_Y; }
+
+    Vector2 operator+(const Vector2& other) const { return Vector2(m_X + other.m_X, m_Y + other.m_Y); }
+    Vector2 operator-(const Vector2& other) const { return Vector2(m_X - other.m_X, m_Y - other.m_Y); }
+    Vector2 operator*(float scalar) const { return Vector2(m_X * scalar, m_Y * scalar); }
+
+    float dot(const Vector2& other) const { return m_X * other.m_X + m_Y * other.m_Y; }
+    Vector2 cross(const Vector2& other) const { return Vector2(m_Y * other.m_X - m_X * other.m_Y, m_X * other.m_Y - m_Y * other.m_X); }
+
+    float length() const { return sqrtf(lengthSq()); }
+    float lengthSq() const { return m_X * m_X + m_Y * m_Y; }
+
+    float distanceTo(const Vector2& other) const { return (other - *this).length(); }
+
+    Vector2 normalized() const 
+    { 
+        float len = length();
+        
+        if (len == 0.f) return Vector2(0.f, 0.f);
+
+        return Vector2(m_X / len, m_Y / len); 
+    }
+private:
+    float m_X;
+    float m_Y;
+};
 
 class Vector3
 {
@@ -40,6 +75,13 @@ private:
     float m_Z;
 };
 
-static Vector3 VECTOR3_ZERO = Vector3(0.f, 0.f, 0.f);
+static Vector2 VECTOR2_ZERO = Vector2(0.f, 0.f);
+static Vector2 VECTOR2_UNITX = Vector2(1.f, 0.f);
+static Vector2 VECTOR2_UNITY = Vector2(0.f, 1.f);
 
-#endif
+static Vector3 VECTOR3_ZERO = Vector3(0.f, 0.f, 0.f);
+static Vector3 VECTOR3_UNITX = Vector3(1.f, 0.f, 0.f);
+static Vector3 VECTOR3_UNITY = Vector3(0.f, 1.f, 0.f);
+static Vector3 VECTOR3_UNITZ = Vector3(0.f, 0.f, 1.f);
+
+#endif // VECTOR_INL
