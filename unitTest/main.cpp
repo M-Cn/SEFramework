@@ -117,7 +117,7 @@ void panicTest()
     try 
     {
         rlib::setPanicMode(rlib::PanicMode::kPanicModeThrowException);
-        REPORT_PANIC("This is a test panic message.");
+        RPANIC("This is a test panic message.");
     }
     catch (const std::exception& e)
     {

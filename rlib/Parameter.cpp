@@ -48,7 +48,7 @@ namespace rlib
 
     bool IntParameter::fromString(const std::string& string)
     {
-        if (!isValid()) REPORT_PANIC("Invalid IntParameter");
+        if (!isValid()) RPANIC("Invalid IntParameter");
 
         try 
         {
@@ -64,14 +64,14 @@ namespace rlib
 
     std::string IntParameter::getValueString() const
     {
-        if (!isValid()) REPORT_PANIC("Invalid IntParameter");
+        if (!isValid()) RPANIC("Invalid IntParameter");
 
         return std::to_string(m_value);
     }
 
     bool UIntParameter::fromString(const std::string& string)
     {
-        if (!isValid()) REPORT_PANIC("Invalid UIntParameter");
+        if (!isValid()) RPANIC("Invalid UIntParameter");
 
         try 
         {
@@ -87,14 +87,14 @@ namespace rlib
 
     std::string UIntParameter::getValueString() const
     {
-        if (!isValid()) REPORT_PANIC("Invalid UIntParameter");
+        if (!isValid()) RPANIC("Invalid UIntParameter");
 
         return std::to_string(m_value);
     }
 
     bool FloatParameter::fromString(const std::string& string)
     {
-        if (!isValid()) REPORT_PANIC("Invalid FloatParameter");
+        if (!isValid()) RPANIC("Invalid FloatParameter");
 
         try
         {
@@ -110,14 +110,14 @@ namespace rlib
 
     std::string FloatParameter::getValueString() const
     {
-        if (!isValid()) REPORT_PANIC("Invalid FloatParameter");
+        if (!isValid()) RPANIC("Invalid FloatParameter");
 
         return std::to_string(m_value);
     }
 
     bool DoubleParameter::fromString(const std::string& string)
     {
-        if (!isValid()) REPORT_PANIC("Invalid DoubleParameter");
+        if (!isValid()) RPANIC("Invalid DoubleParameter");
 
         try 
         {
@@ -133,14 +133,14 @@ namespace rlib
 
     std::string DoubleParameter::getValueString() const
     {
-        if (!isValid()) REPORT_PANIC("Invalid DoubleParameter");
+        if (!isValid()) RPANIC("Invalid DoubleParameter");
 
         return std::to_string(m_value);
     }
 
     bool StringParameter::fromString(const std::string& string)
     {
-        if (!isValid()) REPORT_PANIC("Invalid StringParameter");
+        if (!isValid()) RPANIC("Invalid StringParameter");
 
         m_value = string;
 
@@ -149,14 +149,14 @@ namespace rlib
 
     std::string StringParameter::getValueString() const
     {
-        if (!isValid()) REPORT_PANIC("Invalid StringParameter");
+        if (!isValid()) RPANIC("Invalid StringParameter");
 
         return m_value;
     }
 
     bool BoolParameter::fromString(const std::string& string)
     {
-        if (!isValid()) REPORT_PANIC("Invalid BoolParameter");
+        if (!isValid()) RPANIC("Invalid BoolParameter");
 
         std::string lowerStr = string;
         std::transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(), ::tolower);
@@ -179,7 +179,7 @@ namespace rlib
 
     std::string BoolParameter::getValueString() const
     {
-        if (!isValid()) REPORT_PANIC("Invalid BoolParameter");
+        if (!isValid()) RPANIC("Invalid BoolParameter");
 
         return m_value ? "true" : "false";
     }
@@ -187,7 +187,7 @@ namespace rlib
     int IntArrayParameter::getValue(int idx) const
     {
         if (idx < 0 || static_cast<size_t>(idx) >= m_value.size())
-            REPORT_PANIC("Index out of range in IntArrayParameter::getValue");
+            RPANIC("Index out of range in IntArrayParameter::getValue");
 
         return m_value[idx];
     }
@@ -195,14 +195,14 @@ namespace rlib
     void IntArrayParameter::setValue(int idx, int value)
     {
         if (idx < 0 || static_cast<size_t>(idx) >= m_value.size())
-            REPORT_PANIC("Index out of range in IntArrayParameter::setValue");
+            RPANIC("Index out of range in IntArrayParameter::setValue");
 
         m_value[idx] = value;
     }
 
     bool IntArrayParameter::fromString(const std::string& string)
     {
-        if (!isValid()) REPORT_PANIC("Invalid IntArrayParameter");
+        if (!isValid()) RPANIC("Invalid IntArrayParameter");
 
         m_value.clear();
 
@@ -225,7 +225,7 @@ namespace rlib
 
     std::string IntArrayParameter::getValueString() const
     {
-        if (!isValid()) REPORT_PANIC("Invalid IntArrayParameter");
+        if (!isValid()) RPANIC("Invalid IntArrayParameter");
 
         std::ostringstream ss;
         for (size_t i = 0; i < m_value.size(); ++i)
@@ -243,7 +243,7 @@ namespace rlib
     float FloatArrayParameter::getValue(int idx) const
     {
         if (idx < 0 || static_cast<size_t>(idx) >= m_value.size())
-            REPORT_PANIC("Index out of range in FloatArrayParameter::getValue");
+            RPANIC("Index out of range in FloatArrayParameter::getValue");
 
         return m_value[idx];
     }
@@ -251,14 +251,14 @@ namespace rlib
     void FloatArrayParameter::setValue(int idx, float value)
     {
         if (idx < 0 || static_cast<size_t>(idx) >= m_value.size())
-            REPORT_PANIC("Index out of range in FloatArrayParameter::setValue");
+            RPANIC("Index out of range in FloatArrayParameter::setValue");
 
         m_value[idx] = value;
     }
 
     bool FloatArrayParameter::fromString(const std::string& string)
     {
-        if (!isValid()) REPORT_PANIC("Invalid FloatArrayParameter");
+        if (!isValid()) RPANIC("Invalid FloatArrayParameter");
         
         m_value.clear();
 
@@ -282,7 +282,7 @@ namespace rlib
 
     std::string FloatArrayParameter::getValueString() const
     {
-        if (!isValid()) REPORT_PANIC("Invalid FloatArrayParameter");
+        if (!isValid()) RPANIC("Invalid FloatArrayParameter");
 
         std::ostringstream ss;
         for (size_t i = 0; i < m_value.size(); ++i)
@@ -300,7 +300,7 @@ namespace rlib
     double DoubleArrayParameter::getValue(int idx) const
     {
         if (idx < 0 || static_cast<size_t>(idx) >= m_value.size())
-            REPORT_PANIC("Index out of range in DoubleArrayParameter::getValue");
+            RPANIC("Index out of range in DoubleArrayParameter::getValue");
 
         return m_value[idx];
     }
@@ -308,14 +308,14 @@ namespace rlib
     void DoubleArrayParameter::setValue(int idx, double value)
     {
         if (idx < 0 || static_cast<size_t>(idx) >= m_value.size())
-            REPORT_PANIC("Index out of range in DoubleArrayParameter::setValue");
+            RPANIC("Index out of range in DoubleArrayParameter::setValue");
 
         m_value[idx] = value;
     }
 
     bool DoubleArrayParameter::fromString(const std::string& string)
     {
-        if (!isValid()) REPORT_PANIC("Invalid DoubleArrayParameter");
+        if (!isValid()) RPANIC("Invalid DoubleArrayParameter");
 
         m_value.clear();
 
@@ -339,7 +339,7 @@ namespace rlib
 
     std::string DoubleArrayParameter::getValueString() const
     {
-        if (!isValid()) REPORT_PANIC("Invalid DoubleArrayParameter");
+        if (!isValid()) RPANIC("Invalid DoubleArrayParameter");
 
         std::ostringstream ss;
         for (size_t i = 0; i < m_value.size(); ++i)
@@ -358,7 +358,7 @@ namespace rlib
     std::string StringArrayParameter::getValue(int idx) const
     {
         if (idx < 0 || static_cast<size_t>(idx) >= m_value.size())
-            REPORT_PANIC("Index out of range in StringArrayParameter::getValue");
+            RPANIC("Index out of range in StringArrayParameter::getValue");
 
         return m_value[idx];
     }
@@ -366,14 +366,14 @@ namespace rlib
     void StringArrayParameter::setValue(int idx, const std::string& value)
     {
         if (idx < 0 || static_cast<size_t>(idx) >= m_value.size())
-            REPORT_PANIC("Index out of range in StringArrayParameter::setValue");
+            RPANIC("Index out of range in StringArrayParameter::setValue");
 
         m_value[idx] = value;
     }
 
     bool StringArrayParameter::fromString(const std::string& string)
     {
-        if (!isValid()) REPORT_PANIC("Invalid StringArrayParameter");
+        if (!isValid()) RPANIC("Invalid StringArrayParameter");
 
         m_value.clear();
         std::istringstream ss(string);
@@ -389,7 +389,7 @@ namespace rlib
 
     std::string StringArrayParameter::getValueString() const
     {
-        if (!isValid()) REPORT_PANIC("Invalid StringArrayParameter");
+        if (!isValid()) RPANIC("Invalid StringArrayParameter");
 
         std::ostringstream ss;
         for (size_t i = 0; i < m_value.size(); ++i)
@@ -408,7 +408,7 @@ namespace rlib
     bool BoolArrayParameter::getValue(int idx) const
     {
         if (idx < 0 || static_cast<size_t>(idx) >= m_value.size())
-            REPORT_PANIC("Index out of range in BoolArrayParameter::getValue");
+            RPANIC("Index out of range in BoolArrayParameter::getValue");
 
         return m_value[idx];
     }
@@ -416,14 +416,14 @@ namespace rlib
     void BoolArrayParameter::setValue(int idx, bool value)
     {
         if (idx < 0 || static_cast<size_t>(idx) >= m_value.size())
-            REPORT_PANIC("Index out of range in BoolArrayParameter::setValue");
+            RPANIC("Index out of range in BoolArrayParameter::setValue");
 
         m_value[idx] = value;
     }
     
     bool BoolArrayParameter::fromString(const std::string& string)
     {
-        if (!isValid()) REPORT_PANIC("Invalid BoolArrayParameter");
+        if (!isValid()) RPANIC("Invalid BoolArrayParameter");
 
         m_value.clear();
         std::istringstream ss(string);
@@ -453,7 +453,7 @@ namespace rlib
 
     std::string BoolArrayParameter::getValueString() const
     {
-        if (!isValid()) REPORT_PANIC("Invalid BoolArrayParameter");
+        if (!isValid()) RPANIC("Invalid BoolArrayParameter");
 
         std::ostringstream ss;
         for (size_t i = 0; i < m_value.size(); ++i)
@@ -471,7 +471,7 @@ namespace rlib
 
     bool MdpStateTransitionDefParameter::fromString(const std::string& string)
     {
-        if (!isValid()) REPORT_PANIC("Invalid MdpStateTransitionDefParameter");
+        if (!isValid()) RPANIC("Invalid MdpStateTransitionDefParameter");
 
         std::istringstream ss(string);
         std::string item;
@@ -493,7 +493,7 @@ namespace rlib
 
     std::string MdpStateTransitionDefParameter::getValueString() const
     {
-        if (!isValid()) REPORT_PANIC("Invalid MdpStateTransitionDefParameter");
+        if (!isValid()) RPANIC("Invalid MdpStateTransitionDefParameter");
 
         std::ostringstream ss;
         ss << m_stateID << SEPARATOR << m_nextStateID << SEPARATOR << m_probability << SEPARATOR << m_cost;

@@ -21,7 +21,7 @@ namespace rlib
         if (index < m_transitions.size())
             return m_transitions[index];
 
-        REPORT_PANIC("MDP::State::getTransition: index out of range");
+        RPANIC("MDP::State::getTransition: index out of range");
     }
 
     MDP::StateTransition* MDP::State::getTransitionToState(uint32_t nextStateID)
@@ -54,7 +54,7 @@ namespace rlib
     void MDP::State::update() const
     {
         if (!areTransitionsValid())
-            REPORT_PANIC("MDP::State::update: transition probabilities do not add up to 1.0");
+            RPANIC("MDP::State::update: transition probabilities do not add up to 1.0");
       
         real_t randValue = DefaultRng::getInstance()->getRandomReal(0.f, 1.f);
         real_t cumulativeProb = 0.f;
@@ -68,12 +68,12 @@ namespace rlib
                 m_owner->m_totalCost += m_transitions[i]->getCost();
                 m_owner->m_currentState = m_transitions[i]->getNextStateID();
 
-                LOG_DEBUG("MDP transitioning from state %u to state %u with cost %.3f\n", m_id, m_transitions[i]->getNextStateID(), m_transitions[i]->getCost());
+                LOG_INFO("MDP transitioning from state %u to state %u with cost %.3f\n", m_id, m_transitions[i]->getNextStateID(), m_transitions[i]->getCost());
                 return;
             }
         }
 
-        REPORT_PANIC("MDP::State::update: failed to determine next state for transition");
+        RPANIC("MDP::State::update: failed to determine next state for transition");
     }
 
     bool MDP::State::areTransitionsValid() const
@@ -109,7 +109,7 @@ namespace rlib
                 return m_states[i];
         }
 
-        REPORT_PANIC("MDP::getState: state ID not found");
+        RPANIC("MDP::getState: state ID not found");
     }
 
     MDP::State* MDP::getStateAt(const uint32_t index)
@@ -117,7 +117,7 @@ namespace rlib
         if (index < static_cast<uint32_t>(m_states.size()))
             return m_states[index];
 
-        REPORT_PANIC("MDP::getState: index out of range");
+        RPANIC("MDP::getState: index out of range");
     }
 
     MDP::State* MDP::getCurrentState()
@@ -125,7 +125,7 @@ namespace rlib
         if (m_currentState < static_cast<uint32_t>(m_states.size()))
             return m_states[m_currentState];
 
-        REPORT_PANIC("MDP::getCurrentState: current state index out of range");
+        RPANIC("MDP::getCurrentState: current state index out of range");
     }
 
     void MDP::initialize()

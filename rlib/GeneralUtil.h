@@ -27,7 +27,7 @@ namespace rlib
     pid_t getThreadId();
 }
 
-#define REPORT_PANIC(msg) \
+#define RPANIC(msg) \
     do { \
         std::string _panic_msg(msg); \
         rlib::reportPanic(__FILE__, __LINE__, _panic_msg.c_str()); \

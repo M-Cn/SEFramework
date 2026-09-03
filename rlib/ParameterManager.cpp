@@ -23,7 +23,7 @@ namespace rlib
         if (index < m_parameters.size())
             return m_parameters[index];
 
-        REPORT_PANIC("ParameterManager::getParameter: index out of range");
+        RPANIC("ParameterManager::getParameter: index out of range");
     }
 
     Parameter* ParameterManager::getParameter(const std::string& name) const
@@ -77,7 +77,7 @@ namespace rlib
             return;
         }
 
-        REPORT_PANIC("ParameterManager::unregisterParameter: index out of range");
+        RPANIC("ParameterManager::unregisterParameter: index out of range");
     }
 
     bool ParameterManager::loadFromFile(const std::string& filename)
@@ -85,7 +85,7 @@ namespace rlib
         std::ifstream file(filename);
         if (!file.is_open())
         {
-            REPORT_PANIC("ParameterManager::loadFromFile: failed to open file " + filename);
+            RPANIC("ParameterManager::loadFromFile: failed to open file " + filename);
             return false;
         }
 

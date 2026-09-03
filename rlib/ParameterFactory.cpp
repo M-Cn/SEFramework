@@ -14,7 +14,7 @@ namespace rlib
         if (it != m_typeMap.end())
             return it->second;
 
-        REPORT_PANIC("Unknown parameter type: " + typeName);
+        RPANIC("Unknown parameter type: " + typeName);
     }
 
     Parameter* ParameterFactory::makeParameter(const std::string& typeName, const std::string& name) const
@@ -37,7 +37,7 @@ namespace rlib
         case ParameterType::kParamMdpStateTransitionDef:    return new MdpStateTransitionDefParameter(name, typeName);
         }
 
-        REPORT_PANIC("Unsupported parameter type: " + std::to_string(static_cast<int>(type)));
+        RPANIC("Unsupported parameter type: " + std::to_string(static_cast<int>(type)));
     }
 
     void ParameterFactory::registerDefaultTypes()
