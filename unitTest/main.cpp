@@ -13,6 +13,7 @@ void reportTestResultTest()
 void logTest()
 {
     printf("------Log test------\n");
+    printf("This test will output messages only if compiled in debug mode.\n");
 
     LOG_INFO("This is a log info message.\n");
     LOG_DEBUG("This is a log debug message.\n");
