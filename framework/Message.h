@@ -6,16 +6,12 @@
 
 struct Message 
 {
+    typedef uint32_t MessageId;
     typedef float Timestamp;
 
-    uint32_t senderId;
-    uint32_t receiverId;
-    uint32_t productId;
+    MessageId id;
     enum class Type { REQUEST, RESPONSE } type;
     Timestamp timestamp;
-
-    Message(uint32_t _senderId, uint32_t _receiverId, uint32_t _productId, Type _type, Timestamp _timestamp = 0.f)
-        : senderId(_senderId), receiverId(_receiverId), productId(_productId), type(_type), timestamp(_timestamp) {}
 };
 
 #endif // MESSAGE_H

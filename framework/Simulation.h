@@ -1,6 +1,8 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
+#include <type_traits>
+
 /*
  * Represents the result of a simulation.
  * Note: This class should be inherited from by specific simulation result types to provide additional data and functionality as needed.
@@ -24,7 +26,8 @@ public:
     template<typename T>
     bool getResult(T& _outResult) 
     {
-        return _getResultInternal(&_outResult);
+        static_assert(std::is_base_of_v<SimulationResult, T>, "T must be a type derived from SimulationResult");
+        return _getResultInternal(_outResult);
     }
 
 protected:
@@ -35,7 +38,7 @@ protected:
     Note: The type of the result is determined by the specific implementation of the simulation. 
     As such, the actual result should be exposed by another user defined function that calls this function and casts the result to the appropriate type.
     */
-    virtual bool _getResultInternal(SimulationResult* _pResult) = 0;
+    virtual bool _getResultInternal(SimulationResult& _result) = 0;
 };
 
 #endif // SIMULATION_H

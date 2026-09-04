@@ -1,7 +1,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "Message.h"
+#include <cstdint>
 
 class Entity 
 {
@@ -9,9 +9,8 @@ public:
     Entity(uint32_t id) : m_id(id) {}
     virtual ~Entity() = default;
 
-    virtual void initialize() = 0;
-    virtual void update(float dt) = 0;
-    virtual void receiveMessage(const Message& msg) = 0;
+    virtual bool initialize() { return true; }
+    virtual void update(float dt) {}
 
     uint32_t getId() const { return m_id; }
 
