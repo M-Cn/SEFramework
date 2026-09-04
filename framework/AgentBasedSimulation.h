@@ -14,7 +14,7 @@ public:
     virtual void sendMessage(const Message& msg);
 
 protected:
-    void dispatchMessages();
+    void _dispatchMessages();
 
     std::map<uint32_t, Entity*> m_entities;
     std::vector<Message> m_messageQueue;

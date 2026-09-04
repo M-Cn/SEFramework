@@ -5,7 +5,7 @@ void AgentBasedSimulation::sendMessage(const Message& msg)
     m_messageQueue.push_back(msg);
 }
 
-void AgentBasedSimulation::dispatchMessages()
+void AgentBasedSimulation::_dispatchMessages()
 {
     std::vector<Message> currentQueue = std::move(m_messageQueue);
     m_messageQueue.clear();
