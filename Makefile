@@ -12,20 +12,23 @@ DEBUG_FLAGS := -ggdb -g3 -Wall -Wextra -pedantic $(addprefix -D,$(DEBUG_DEFINES)
 # Directory sorgenti
 MOCC_LIB := ../mocc
 RLIB_LIB := ../rlib
+FRAMEWORK_LIB := ../framework
 SRC_DIR := .
 
 # Trova tutti i file .cpp
 MOCC_CPP := $(wildcard $(MOCC_LIB)/*.cpp)
 RLIB_CPP := $(shell find $(RLIB_LIB) -type f -name "*.cpp")
+FRAMEWORK_CPP := $(shell find $(FRAMEWORK_LIB) -type f -name "*.cpp")
 LOCAL_CPP := $(wildcard $(SRC_DIR)/*.cpp)
 
 # Directory per oggetti e dipendenze
 BUILD_DIR := build
 MOCC_OBJ := $(patsubst $(MOCC_LIB)/%.cpp,$(BUILD_DIR)/mocc_%.o,$(MOCC_CPP))
 RLIB_OBJ := $(patsubst $(RLIB_LIB)/%.cpp,$(BUILD_DIR)/rlib/%.o,$(RLIB_CPP))
+FRAMEWORK_OBJ := $(patsubst $(FRAMEWORK_LIB)/%.cpp,$(BUILD_DIR)/framework/%.o,$(FRAMEWORK_CPP))
 LOCAL_OBJ := $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/local_%.o,$(LOCAL_CPP))
 
-ALL_OBJ := $(MOCC_OBJ) $(RLIB_OBJ) $(LOCAL_OBJ)
+ALL_OBJ := $(MOCC_OBJ) $(RLIB_OBJ) $(FRAMEWORK_OBJ) $(LOCAL_OBJ)
 
 # Target principali
 .PHONY: all main debug clean
@@ -50,8 +53,13 @@ $(BUILD_DIR)/mocc_%.o: $(MOCC_LIB)/%.cpp | $(BUILD_DIR)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
 
-# Regola per RLIB (accetta sottocartelle grazie al pattern % nello step di compilazione)
+# Regola per RLIB
 $(BUILD_DIR)/rlib/%.o: $(RLIB_LIB)/%.cpp | $(BUILD_DIR)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
+
+# Regola per FRAMEWORK (gestisce anche eventuali sottocartelle)
+$(BUILD_DIR)/framework/%.o: $(FRAMEWORK_LIB)/%.cpp | $(BUILD_DIR)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
 
