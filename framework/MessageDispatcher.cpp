@@ -1,18 +1,40 @@
 #include "MessageDispatcher.h"
+#include "../rlib/rlib.h"
 
-void MessageDispatcher::registerReceiver(Message::MessageId _messageId, IMessageReceiver* _receiver)
+void MessageDispatcher::registerReceiver(Message::ReceiverId _id, IMessageReceiver* _receiver)
 {
-    m_receivers[_messageId] = _receiver;
+    m_receivers[_id] = _receiver;
 }
 
-void MessageDispatcher::unregisterReceiver(Message::MessageId _messageId)
+void MessageDispatcher::unregisterReceiver(Message::ReceiverId _id)
 {
-    m_receivers.erase(_messageId);
+    m_receivers.erase(_id);
+}
+
+void MessageDispatcher::finalize()
+{
+    m_receivers.clear();
+    m_messageQueue.clear();
+}
+
+void MessageDispatcher::update(float _dt)
+{
+    _dispatchMessages();
 }
 
 void MessageDispatcher::sendMessage(const Message& _msg)
 {
     m_messageQueue.push_back(_msg);
+}
+
+IMessageReceiver* MessageDispatcher::getReceiver(Message::ReceiverId _id) const
+{
+    auto it = m_receivers.find(_id);
+
+    if (it != m_receivers.end())
+        return it->second;
+
+    return nullptr;
 }
 
 void MessageDispatcher::_dispatchMessages()
@@ -22,12 +44,14 @@ void MessageDispatcher::_dispatchMessages()
 
     for (const auto& msg : currentQueue)
     {
-        auto it = m_receivers.find(msg.id);
-        if (it != m_receivers.end())
-        {
-            IMessageReceiver* receiver = it->second;
+        IMessageReceiver* receiver = getReceiver(msg.receiverId);
 
-            if (receiver) receiver->receiveMessage(msg);
+        if (!receiver)
+        {
+            LOG_WARNING("MessageDispatcher: No receiver found for message with receiverId %d", msg.receiverId);
+            continue;
         }
+
+        receiver->receiveMessage(msg);
     }
 }

@@ -7,26 +7,26 @@
 #include <vector>
 #include <map>
 
-class IMessageDispatcher
-{
-public:
-    virtual void sendMessage(const Message& _msg) = 0;
-};
-
-class MessageDispatcher : public IMessageDispatcher
+class MessageDispatcher
 {
 public:
     MessageDispatcher() = default;
     virtual ~MessageDispatcher() = default;
 
-    virtual void sendMessage(const Message& _msg) override;
+    virtual bool initialize() { return true; }
+    virtual void finalize();
+    virtual void update(float _dt);
 
-    void registerReceiver(Message::MessageId _messageId, IMessageReceiver* _receiver);
-    void unregisterReceiver(Message::MessageId _messageId);
+    virtual void sendMessage(const Message& _msg);
+
+    void registerReceiver(Message::ReceiverId _id, IMessageReceiver* _receiver);
+    void unregisterReceiver(Message::ReceiverId _id);
+    IMessageReceiver* getReceiver(Message::ReceiverId _id) const;
+    bool hasReceiver(Message::ReceiverId _id) const { return getReceiver(_id) != nullptr; }
 protected:
     void _dispatchMessages();
 
-    std::map<Message::MessageId, IMessageReceiver*> m_receivers;
+    std::map<Message::ReceiverId, IMessageReceiver*> m_receivers;
     std::vector<Message> m_messageQueue;
 };
 

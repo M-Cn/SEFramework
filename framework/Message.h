@@ -6,12 +6,15 @@
 
 struct Message 
 {
-    typedef uint32_t MessageId;
-    typedef float Timestamp;
+    typedef uint32_t ReceiverId;
+    typedef size_t Timestamp;
 
-    MessageId id;
-    enum class Type { REQUEST, RESPONSE } type;
+    ReceiverId receiverId;
     Timestamp timestamp;
+
+    Message(ReceiverId _id) : receiverId(_id), timestamp(0) {}
+    Message(ReceiverId _id, Timestamp _timestamp) : receiverId(_id), timestamp(_timestamp) {}
+    std::string toString() const;
 };
 
 #endif // MESSAGE_H
