@@ -1,5 +1,5 @@
 #include "MessageDispatcher.h"
-#include "../rlib/rlib.h"
+#include "../../rlib/rlib.h"
 
 void MessageDispatcher::registerReceiver(Message::ReceiverId _id, IMessageReceiver* _receiver)
 {
@@ -44,11 +44,11 @@ void MessageDispatcher::_dispatchMessages()
 
     for (const auto& msg : currentQueue)
     {
-        IMessageReceiver* receiver = getReceiver(msg.receiverId);
+        IMessageReceiver* receiver = getReceiver(msg.receiverId());
 
         if (!receiver)
         {
-            LOG_WARNING("MessageDispatcher: No receiver found for message with receiverId %d", msg.receiverId);
+            LOG_WARNING("MessageDispatcher::_dispatchMessages: No receiver found for message with receiverId %d", msg.receiverId());
             continue;
         }
 
