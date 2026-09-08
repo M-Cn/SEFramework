@@ -5,25 +5,42 @@
 
 namespace rlib
 {
-    class Vector2
+    struct Vector2
     {
-    public:
-        Vector2() : m_X(0.f), m_Y(0.f) {}
-        Vector2(float _x, float _y) : m_X(_x), m_Y(_y) {}
-        Vector2(const Vector2& other) { m_X = other.m_X; m_Y = other.m_Y; }
+        Vector2() : X(0.f), Y(0.f) {}
+        Vector2(float _x, float _y) : X(_x), Y(_y) {}
+        Vector2(const Vector2& other) { X = other.X; Y = other.Y; }
 
-        float X() const { return m_X; }
-        float Y() const { return m_Y; }
+        Vector2 operator+(const Vector2& other) const { return Vector2(X + other.X, Y + other.Y); }
+        Vector2 operator-(const Vector2& other) const { return Vector2(X - other.X, Y - other.Y); }
+        Vector2 operator*(float scalar) const { return Vector2(X * scalar, Y * scalar); }
 
-        Vector2 operator+(const Vector2& other) const { return Vector2(m_X + other.m_X, m_Y + other.m_Y); }
-        Vector2 operator-(const Vector2& other) const { return Vector2(m_X - other.m_X, m_Y - other.m_Y); }
-        Vector2 operator*(float scalar) const { return Vector2(m_X * scalar, m_Y * scalar); }
+        Vector2& operator+=(const Vector2& other) 
+        { 
+            X += other.X; 
+            Y += other.Y; 
+            return *this; 
+        }
 
-        float dot(const Vector2& other) const { return m_X * other.m_X + m_Y * other.m_Y; }
-        Vector2 cross(const Vector2& other) const { return Vector2(m_Y * other.m_X - m_X * other.m_Y, m_X * other.m_Y - m_Y * other.m_X); }
+        Vector2& operator-=(const Vector2& other) 
+        { 
+            X -= other.X; 
+            Y -= other.Y; 
+            return *this; 
+        }
+
+        Vector2& operator*=(float scalar) 
+        { 
+            X *= scalar; 
+            Y *= scalar; 
+            return *this; 
+        }
+
+        float dot(const Vector2& other) const { return X * other.X + Y * other.Y; }
+        Vector2 cross(const Vector2& other) const { return Vector2(Y * other.X - X * other.Y, X * other.Y - Y * other.X); }
 
         float length() const { return sqrtf(lengthSq()); }
-        float lengthSq() const { return m_X * m_X + m_Y * m_Y; }
+        float lengthSq() const { return X * X + Y * Y; }
 
         float distanceTo(const Vector2& other) const { return (other - *this).length(); }
 
@@ -33,33 +50,59 @@ namespace rlib
             
             if (len == 0.f) return Vector2(0.f, 0.f);
 
-            return Vector2(m_X / len, m_Y / len); 
+            return Vector2(X / len, Y / len); 
         }
-    private:
-        float m_X;
-        float m_Y;
+
+        union
+        {
+            float V[2];
+            struct
+            {
+                float X;
+                float Y;
+            };
+        };
     };
 
-    class Vector3
+    struct Vector3
     {
-    public:
-        Vector3() : m_X(0.f), m_Y(0.f), m_Z(0.f) {}
-        Vector3(float _x, float _y, float _z) : m_X(_x), m_Y(_y), m_Z(_z) {}
-        Vector3(const Vector3& other) { m_X = other.m_X; m_Y = other.m_Y; m_Z = other.m_Z; }
+        Vector3() : X(0.f), Y(0.f), Z(0.f) {}
+        Vector3(float _x, float _y, float _z) : X(_x), Y(_y), Z(_z) {}
+        Vector3(const Vector3& other) { X = other.X; Y = other.Y; Z = other.Z; }
 
-        float X() const { return m_X; }
-        float Y() const { return m_Y; }
-        float Z() const { return m_Z; }
+        Vector3 operator+(const Vector3& other) const { return Vector3(X + other.X, Y + other.Y, Z + other.Z); }
+        Vector3 operator-(const Vector3& other) const { return Vector3(X - other.X, Y - other.Y, Z - other.Z); }
+        Vector3 operator*(float scalar) const { return Vector3(X * scalar, Y * scalar, Z * scalar); }
 
-        Vector3 operator+(const Vector3& other) const { return Vector3(m_X + other.m_X, m_Y + other.m_Y, m_Z + other.m_Z); }
-        Vector3 operator-(const Vector3& other) const { return Vector3(m_X - other.m_X, m_Y - other.m_Y, m_Z - other.m_Z); }
-        Vector3 operator*(float scalar) const { return Vector3(m_X * scalar, m_Y * scalar, m_Z * scalar); }
+        Vector3& operator+=(const Vector3& other) 
+        { 
+            X += other.X; 
+            Y += other.Y; 
+            Z += other.Z; 
+            return *this; 
+        }
 
-        float dot(const Vector3& other) const { return m_X * other.m_X + m_Y * other.m_Y + m_Z * other.m_Z; }
-        Vector3 cross(const Vector3& other) const { return Vector3(m_Y * other.m_Z - m_Z * other.m_Y, m_Z * other.m_X - m_X * other.m_Z, m_X * other.m_Y - m_Y * other.m_X); }
+        Vector3& operator-=(const Vector3& other) 
+        { 
+            X -= other.X; 
+            Y -= other.Y; 
+            Z -= other.Z; 
+            return *this; 
+        }
+
+        Vector3& operator*=(float scalar) 
+        { 
+            X *= scalar; 
+            Y *= scalar; 
+            Z *= scalar; 
+            return *this; 
+        }
+
+        float dot(const Vector3& other) const { return X * other.X + Y * other.Y + Z * other.Z; }
+        Vector3 cross(const Vector3& other) const { return Vector3(Y * other.Z - Z * other.Y, Z * other.X - X * other.Z, X * other.Y - Y * other.X); }
 
         float length() const { return sqrtf(lengthSq()); }
-        float lengthSq() const { return m_X * m_X + m_Y * m_Y + m_Z * m_Z; }
+        float lengthSq() const { return X * X + Y * Y + Z * Z; }
 
         float distanceTo(const Vector3& other) const { return (other - *this).length(); }
 
@@ -69,12 +112,19 @@ namespace rlib
             
             if (len == 0.f) return Vector3(0.f, 0.f, 0.f);
 
-            return Vector3(m_X / len, m_Y / len, m_Z / len); 
+            return Vector3(X / len, Y / len, Z / len); 
         }
-    private:
-        float m_X;
-        float m_Y;
-        float m_Z;
+
+        union
+        {
+            float V[3];
+            struct
+            {
+                float X;
+                float Y;
+                float Z;
+            };
+        };
     };
 
     static Vector2 VECTOR2_ZERO = Vector2(0.f, 0.f);

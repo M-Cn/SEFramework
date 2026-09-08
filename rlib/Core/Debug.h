@@ -24,7 +24,12 @@
         printf(RESET); \
     } while(0)
 
+#ifdef DEBUG
 #define LOG_DEBUG(fmt, ...)   LOG_COLOR(WHITE, "DEBUG", fmt, ##__VA_ARGS__)
+#else
+#define LOG_DEBUG(fmt, ...)
+#endif
+
 #define LOG_INFO(fmt, ...)    LOG_COLOR(RESET, "INFO", fmt, ##__VA_ARGS__)
 #define LOG_WARNING(fmt, ...) LOG_COLOR(YELLOW, "WARNING", fmt, ##__VA_ARGS__)
 #define LOG_ERROR(fmt, ...)   LOG_COLOR(RED, "ERROR", fmt, ##__VA_ARGS__)

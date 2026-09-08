@@ -10,10 +10,10 @@ MAIN_FLAGS := -O3 $(addprefix -D,$(DEFINES))
 DEBUG_FLAGS := -ggdb -g3 -Wall -Wextra -pedantic $(addprefix -D,$(DEBUG_DEFINES))
 
 # Directory sorgenti
-MOCC_LIB := ../mocc
-RLIB_LIB := ../rlib
-FRAMEWORK_LIB := ../framework
-SRC_DIR := .
+MOCC_LIB := mocc
+RLIB_LIB := rlib
+FRAMEWORK_LIB := framework
+SRC_DIR :=
 
 # Trova tutti i file .cpp
 MOCC_CPP := $(wildcard $(MOCC_LIB)/*.cpp)
