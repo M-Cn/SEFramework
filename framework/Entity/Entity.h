@@ -10,7 +10,8 @@ public:
     virtual ~Entity() = default;
 
     virtual bool initialize() { return true; }
-    virtual void update(float dt) {}
+    virtual void update(float _dt) {}
+    virtual void finalize() {}
 
     uint32_t getId() const { return m_id; }
 
