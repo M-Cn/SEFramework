@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <cstdint>
+#include <stdexcept>
 
 namespace rlib 
 {
@@ -57,6 +58,12 @@ namespace rlib
         ParameterType getType() const { return m_type; }
 
         void rename(const std::string& newName) { m_name = newName; }
+
+        template<typename T>
+        T getValue() const
+        {
+            throw std::runtime_error("getValue() not implemented for this parameter type");
+        }
 
         /*
         Converts a ParameterType to its string representation.
@@ -282,5 +289,7 @@ namespace rlib
         std::vector<bool> m_value;
     };
 } // namespace rlib
+
+#include "Parameter.inl"
 
 #endif // PARAMETER_H

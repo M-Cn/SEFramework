@@ -26,7 +26,7 @@ public:
     template<typename T>
     bool getResult(T& _outResult) 
     {
-        static_assert(rlib::isDerivedFrom<SimulationResult, T>(), "T must be a type derived from SimulationResult");
+        static_assert(std::is_base_of_v<SimulationResult, T>, "T must be a type derived from SimulationResult");
         return _getResultInternal(_outResult);
     }
 

@@ -73,6 +73,13 @@ namespace rlib
 
 #define RASSERT(expr, fmt, ...) \
     do { \
+        if (!expr) { \
+            LOG_ERROR("Assertion failed: " fmt "\n", ##__VA_ARGS__); \
+        } \
+    } while(0)
+
+#define REPORT_TEST_RESULT(expr, fmt, ...) \
+    do { \
         if (expr) { \
             PRINT_SUCCESS("Test passed: " fmt "\n", ##__VA_ARGS__); \
         } else { \
